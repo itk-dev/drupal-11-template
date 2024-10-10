@@ -18,13 +18,13 @@ includes default setup and a starting point for:
 
 Build a new project using this template
 
-```
+``` shell
 TODO 
 ```
 
 ### Prune the project
 
-Prune the project to remove/override template specific files and setup the 
+Prune the project to remove/override template specific files and setup the
 project, with docker config and settings.
 
 ``` shell
