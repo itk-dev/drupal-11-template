@@ -19,7 +19,7 @@ includes default setup and a starting point for:
 Build a new project using this template
 
 ``` shell
-TODO 
+gh repo create itk-dev/{PROJECT-NAME} --template itk-dev/drupal-11-template --public --clone 
 ```
 
 ### Prune the project
@@ -35,7 +35,7 @@ This will:
 
 - Remove TEMPLATE_THEME and cause coding-standards-twig to fail until a new
 theme is added.
-- Add/override .env and .task.env files with files that uses {PROJECT-NAME}
+- Add/override .env and .task.env files with files that uses {PROJECTNAME}
 - Add/override a settings.local.php to web/sites/default folder
 - Override CHANGELOG.md
 - Override Taskfile.yml
