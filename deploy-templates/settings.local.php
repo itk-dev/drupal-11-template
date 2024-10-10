@@ -51,9 +51,3 @@ $settings['hash_salt'] = '1234';
 /**
  * Set trusted host pattern.
  */
-$settings["trusted_host_patterns"] = [
-  "^abc\.local\.itkdev\.dk$"
-];
-$settings["trusted_host_patterns"] = [
-  "^a-b-c\.local\.itkdev\.dk$"
-];

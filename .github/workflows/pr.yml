@@ -113,7 +113,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install site
-        if: ${{ hashFiles('config/sync/core.extension.yml') != '' }}
+        if: ${{ (hashFiles('config/sync/core.extension.yml') != '') && (hashFiles('web/sites/default/settings.local.php') != '') }}
         run: |
           docker network create frontend
           docker compose pull
@@ -126,11 +126,12 @@ jobs:
           docker compose exec --user root phpfpm vendor/bin/drush site:install --existing-config --yes
 
       - name: Export config
-        if: ${{ hashFiles('config/sync/core.extension.yml') != '' }}
+        if: ${{ (hashFiles('config/sync/core.extension.yml') != '') && (hashFiles('web/sites/default/settings.local.php') != '') }}
         run: docker compose exec --user root phpfpm vendor/bin/drush config:export --yes
       - name: Check for changes in config
-        if: ${{ hashFiles('config/sync/core.extension.yml') != '' }}
+        if: ${{ (hashFiles('config/sync/core.extension.yml') != '') && (hashFiles('web/sites/default/settings.local.php') != '') }}
         run: git diff --diff-filter=ACMRT --exit-code config/
+
   code-analysis:
     name: PHP - Code analysis
     runs-on: ubuntu-latest

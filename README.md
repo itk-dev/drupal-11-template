@@ -1,6 +1,6 @@
 # Drupal 11 TEMPLATE
 
-This is a Drupal project template for starting new projects. The template 
+This is a Drupal project template for starting new projects. The template
 includes default setup and a starting point for:
 
 - PHP Code sniffer
@@ -15,6 +15,7 @@ includes default setup and a starting point for:
 ## Usage
 
 ### Build new project from template
+
 Build a new project using this template
 
 ```
@@ -22,10 +23,11 @@ TODO
 ```
 
 ### Prune the project
+
 Prune the project to remove/override template specific files and setup the 
 project, with docker config and settings.
 
-```
+``` shell
 task template-prune {PROJECTNAME}
 ```
 
@@ -39,11 +41,13 @@ theme is added.
 - Override Taskfile.yml
 
 ### Finish
-Replace {PROJECT-NAME} placeholder in this README.md and CHANGELOG.md
+
+- Replace {PROJECT-NAME} placeholder in this README.md and CHANGELOG.md
+- Change header of this document to H1
 
 ### ---- After building a project delete this line and all above ----
 
-# Readme for {PROJECT-NAME}
+## Readme for {PROJECT-NAME}
 
 ## Build assets
 
@@ -62,7 +66,7 @@ When the installation is completed, that admin user is created and the password 
 forget the password, use drush uli command to get a one-time-login link (not the uri here only works if you are using
 trafik).
 
-```shell name="site-login"
+``` shell name="site-login"
 itkdev-docker-compose drush user:login
 ```
 
