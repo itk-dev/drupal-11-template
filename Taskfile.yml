@@ -1,0 +1,22 @@
+version: '3'
+
+dotenv: [".task.env", ".env"]
+
+vars:
+  DOCKER_COMPOSE: '{{ .TASK_DOCKER_COMPOSE | default "itkdev-docker-compose-server" }}'
+
+tasks:
+  template-prune:
+    cmds:
+      - sh -c "echo 'COMPOSE_PROJECT_NAME={{.PROJECTNAME}}\nCOMPOSE_DOMAIN={{.PROJECTNAME}}.local.itkdev.dk' > .env"
+      - sh -c "echo 'TASK_DOCKER_COMPOSE=itkdev-docker-compose' > .task.env"
+      - sh -c "rm -R web/themes/custom/TEMPLATE_THEME"
+      - sh -c "echo '\$settings[\"trusted_host_patterns\"] = [\n  \"^{{.PROJECTNAME}}\.local\.itkdev\.dk$\"\n];' >> deploy-templates/settings.local.php"
+      - sh -c "cp deploy-templates/settings.local.php web/sites/default/"
+      - sh -c "cp deploy-templates/Taskfile.yml Taskfile.yml"
+      - sh -c "rm -R deploy-templates"
+
+    requires:
+      vars:
+        - PROJECTNAME
+
