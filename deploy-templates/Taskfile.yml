@@ -1,0 +1,10 @@
+version: '3'
+
+dotenv: [".task.env", ".env"]
+
+vars:
+  DOCKER_COMPOSE: '{{ .TASK_DOCKER_COMPOSE | default "itkdev-docker-compose-server" }}'
+
+tasks:
+  simulate-github-actions:
+    - sh {{ .DOCKER_COMPOSE }}
