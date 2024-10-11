@@ -8,7 +8,7 @@ vars:
 tasks:
   simulate-github-actions:
     cmds:
-      - docker compose run --user root --rm phpfpm composer normalize
+      - "{{.DOCKER_COMPOSE}} exec phpfpm composer normalize"
       - task check-code
 
   check-code:
