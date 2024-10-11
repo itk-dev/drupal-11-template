@@ -33,7 +33,7 @@ task template-prune {PROJECTNAME}
 
 This will:
 
-- Remove TEMPLATE_THEME and cause coding-standards-twig to fail until a new
+- Remove TEMPLATE_THEME and cause coding-standards-check to fail until a new
 theme is added.
 - Add/override .env and .task.env files with files that uses {PROJECTNAME}
 - Add/override a settings.local.php to web/sites/default folder
