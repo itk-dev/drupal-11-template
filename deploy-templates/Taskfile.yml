@@ -7,4 +7,12 @@ vars:
 
 tasks:
   simulate-github-actions:
-    - sh {{ .DOCKER_COMPOSE }}
+    cmds:
+      - docker compose run --user root --rm phpfpm composer normalize
+      - task check-code
+
+  check-code:
+    cmds:
+      - docker run --rm --volume "$PWD:/md" peterdavehello/markdownlint markdownlint $(git ls-files *.md)
+      - "{{.DOCKER_COMPOSE}} exec phpfpm composer code-analysis"
+      - "{{.DOCKER_COMPOSE}} exec phpfpm composer coding-standards-check/twig-cs-fixer"
