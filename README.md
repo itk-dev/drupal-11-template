@@ -43,11 +43,12 @@ theme is added.
 ### Finish
 
 - Replace {PROJECT-NAME} placeholder in this README.md and CHANGELOG.md
-- Change header of this document to H1
+
+<!-- markdownlint-disable MD025 -->
 
 ### ---- After building a project delete this line and all above ----
 
-## Readme for {PROJECT-NAME}
+# Readme for {PROJECT-NAME}
 
 ## Build assets
 
