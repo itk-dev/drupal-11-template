@@ -28,7 +28,7 @@ Prune the project to remove/override template specific files and setup the
 project, with docker config and settings.
 
 ``` shell
-task template-prune {PROJECTNAME}
+task template-prune PROJECTNAME={PROJECTNAME}
 ```
 
 This will:
