@@ -56,7 +56,7 @@ theme is added.
 ### Site installation
 
 Run the following commands to set up the site a new. This will start contaners
-and run composer install, add a settings.php file run and site-install.
+and run composer install, add a settings.php file and run site-install.
 
 ``` shell name="site-up"
 task build-site:new
@@ -92,11 +92,6 @@ open "http://$(docker compose port nginx 8080)"
 ```
 
 ### Drupal config
-
-This project uses Drupal's configuration import and export to handle configuration changes and uses the [config
-ignore](https://www.drupal.org/project/config_ignore) module to protect some of the site settings form being overridden.
-For local and production configuration settings that you do not want to export, please use `settings.local.php` to
-override default configuration values.
 
 Export config created from drupal:
 
