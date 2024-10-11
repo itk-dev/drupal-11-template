@@ -21,3 +21,6 @@ tasks:
       vars:
         - PROJECTNAME
 
+    preconditions:
+      - sh: "[[ {{.VAR}} =~ ^[a-z\\-]+$ ]]"
+        msg: "PROJECTNAME should only contain lowercase a-z and hyphens"
