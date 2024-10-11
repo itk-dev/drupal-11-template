@@ -54,13 +54,17 @@ theme is added.
 
 ### Site installation
 
-Run the following commands to set up the site. This will run a normal Drupal site installation with the existing
-configuration that comes with this project.
+Run the following commands to set up the site a new. This will start contaners
+and run composer install, add a settings.php file run and site-install.
 
 ``` shell name="site-up"
-itkdev-docker-compose up --detach
-itkdev-docker-compose composer install
-itkdev-docker-compose drush site-install --existing-config --yes
+task build-site:new
+```
+
+If the site has existing config and a settings.php file build the site from that.
+
+``` shell name="site-up"
+task build-site:existing-conf
 ```
 
 When the installation is completed, that admin user is created and the password for logging in the outputted. If you
