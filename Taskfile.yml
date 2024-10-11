@@ -12,7 +12,7 @@ tasks:
       - sh -c "echo 'TASK_DOCKER_COMPOSE=itkdev-docker-compose' > .task.env"
       - sh -c "rm -R web/themes/custom/TEMPLATE_THEME"
       - sh -c "echo '\$settings[\"trusted_host_patterns\"] = [\n  \"^{{.PROJECTNAME}}\.local\.itkdev\.dk$\"\n];' >> deploy-templates/settings.local.php"
-      - sh -c "mkdir web/sites/default"
+      - sh -c "mkdir -p web/sites/default"
       - sh -c "cp deploy-templates/settings.local.php web/sites/default/"
       - sh -c "cp deploy-templates/Taskfile.yml Taskfile.yml"
       - sh -c "rm -R deploy-templates"
@@ -21,3 +21,6 @@ tasks:
       vars:
         - PROJECTNAME
 
+    preconditions:
+      - sh: "[[ {{.PROJECTNAME}} =~ ^[a-z\\-]+$ ]]"
+        msg: "PROJECTNAME should only contain lowercase a-z and hyphens"

@@ -43,23 +43,28 @@ theme is added.
 ### Finish
 
 - Replace {PROJECT-NAME} placeholder in this README.md and CHANGELOG.md
-- Change header of this document to H1
+
+<!-- markdownlint-disable MD025 -->
 
 ### ---- After building a project delete this line and all above ----
 
-## Readme for {PROJECT-NAME}
+# Readme for {PROJECT-NAME}
 
 ## Build assets
 
 ### Site installation
 
-Run the following commands to set up the site. This will run a normal Drupal site installation with the existing
-configuration that comes with this project.
+Run the following commands to set up the site a new. This will start contaners
+and run composer install, add a settings.php file run and site-install.
 
 ``` shell name="site-up"
-itkdev-docker-compose up --detach
-itkdev-docker-compose composer install
-itkdev-docker-compose drush site-install --existing-config --yes
+task build-site:new
+```
+
+If the site has existing config and a settings.php file build the site from that.
+
+``` shell name="site-up"
+task build-site:existing-conf
 ```
 
 When the installation is completed, that admin user is created and the password for logging in the outputted. If you
