@@ -39,11 +39,8 @@ theme is added.
 - Add/override a settings.local.php to web/sites/default folder
 - Add/override a services.local.yml to web/sites/default folder
 - Override CHANGELOG.md
+- Replace {PROJECTNAME} placeholder in README.md and CHANGELOG.md
 - Override Taskfile.yml
-
-### Finish
-
-- Replace {PROJECT-NAME} placeholder in this README.md and CHANGELOG.md
 
 <!-- markdownlint-disable MD025 -->
 
