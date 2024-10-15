@@ -16,6 +16,7 @@ tasks:
       - sh -c "cp deploy-templates/settings.local.php web/sites/default/"
       - sh -c "cp deploy-templates/services.local.yml web/sites/default/"
       - sh -c "cp deploy-templates/Taskfile.yml Taskfile.yml"
+      - sh -c "cp deploy-templates/CHANGELOG.md CHANGELOG.md"
       - sh -c "rm -R deploy-templates"
 
     requires:
