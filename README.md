@@ -18,8 +18,8 @@ includes default setup and a starting point for:
 
 Build a new project using this template
 
-``` shell
-gh repo create itk-dev/{PROJECT-NAME} --template itk-dev/drupal-11-template --public --clone 
+```shell
+gh repo create itk-dev/{PROJECTNAME} --template itk-dev/drupal-11-template --public --clone
 ```
 
 ### Prune the project
@@ -27,7 +27,7 @@ gh repo create itk-dev/{PROJECT-NAME} --template itk-dev/drupal-11-template --pu
 Prune the project to remove/override template specific files and setup the
 project, with docker config and settings.
 
-``` shell
+```shell
 task template-prune PROJECTNAME={PROJECTNAME}
 ```
 
@@ -49,7 +49,7 @@ theme is added.
 
 ### ---- After building a project delete this line and all above ----
 
-# Readme for {PROJECT-NAME}
+# Readme for {PROJECTNAME}
 
 ## Build assets
 
@@ -58,13 +58,13 @@ theme is added.
 Run the following commands to set up the site a new. This will start contaners
 and run composer install, add a settings.php file and run site-install.
 
-``` shell name="site-up"
+```shell name="site-up"
 task build-site:new
 ```
 
 If the site has existing config and a settings.php file build the site from that.
 
-``` shell name="site-up"
+```shell name="site-up"
 task build-site:existing-conf
 ```
 
@@ -72,7 +72,7 @@ When the installation is completed, that admin user is created and the password 
 forget the password, use drush uli command to get a one-time-login link (not the uri here only works if you are using
 trafik).
 
-``` shell name="site-login"
+```shell name="site-login"
 itkdev-docker-compose drush user:login
 ```
 
@@ -80,14 +80,14 @@ itkdev-docker-compose drush user:login
 
 If you are using out `itkdev-docker-compose` simple use the command below to åbne the site in you default browser.
 
-``` shell name="site-open"
+```shell name="site-open"
 itkdev-docker-compose open
 ```
 
 Alternatively you can find the port number that is mapped nginx container that server the site at `http://0.0.0.0:PORT`
 by using this command:
 
-``` shell
+```shell
 open "http://$(docker compose port nginx 8080)"
 ```
 
@@ -101,35 +101,35 @@ itkdev-docker-compose drush config:export
 
 Import config from config files:
 
-``` shell
+```shell
 itkdev-docker-compose drush config:import
 ```
 
 ### Coding standards
 
-``` shell name=coding-standards-composer
+```shell name=coding-standards-composer
 docker compose exec phpfpm composer install
 docker compose exec phpfpm composer normalize
 ```
 
-``` shell name=coding-standards-php
+```shell name=coding-standards-php
 docker compose exec phpfpm composer install
 docker compose exec phpfpm composer coding-standards-apply/phpcs
 docker compose exec phpfpm composer coding-standards-check/phpcs
 ```
 
-``` shell name=coding-standards-twig
+```shell name=coding-standards-twig
 docker compose exec phpfpm composer install
 docker compose exec phpfpm composer coding-standards-apply/twig-cs-fixer
 docker compose exec phpfpm composer coding-standards-check/twig-cs-fixer
 ```
 
-``` shell name=code-analysis
+```shell name=code-analysis
 docker compose exec phpfpm composer install
 docker compose exec phpfpm composer code-analysis
 ```
 
-``` shell name=coding-standards-markdown
+```shell name=coding-standards-markdown
 docker run --platform linux/amd64 --rm --volume "$PWD:/md" peterdavehello/markdownlint markdownlint $(git ls-files *.md) --fix
 docker run --platform linux/amd64 --rm --volume "$PWD:/md" peterdavehello/markdownlint markdownlint $(git ls-files *.md)
 ```
