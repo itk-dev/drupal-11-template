@@ -23,5 +23,5 @@ tasks:
         - PROJECTNAME
 
     preconditions:
-      - sh: "[[ {{.PROJECTNAME}} =~ ^[a-z\\-]+$ ]]"
-        msg: "PROJECTNAME should only contain lowercase a-z and hyphens"
+      - sh: "[[ {{.PROJECTNAME}} =~ ^[a-z0-9\\-]+$ ]]"
+        msg: "PROJECTNAME should only contain lowercase a-z, digits and hyphens"
