@@ -68,8 +68,8 @@ task build-site:existing-conf
 ```
 
 When the installation is completed, that admin user is created and the password for logging in the outputted. If you
-forget the password, use drush uli command to get a one-time-login link (not the uri here only works if you are using
-trafik).
+forget the password, use `drush user:login` command to get a one-time-login URL (note: the URI here only works if you are using
+Traefik and [ITK-dev docker setup](https://github.com/itk-dev/devops_itkdev-docker)).
 
 ```shell name="site-login"
 itkdev-docker-compose drush user:login
