@@ -105,8 +105,8 @@ itkdev-docker-compose drush config:import
 ### Coding standards
 
 ```shell name=coding-standards-composer
-docker compose exec phpfpm composer install
-docker compose exec phpfpm composer normalize
+task compose -- exec phpfpm composer install
+task compose -- exec phpfpm composer normalize
 ```
 
 ```shell name=coding-standards-php
