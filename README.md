@@ -24,8 +24,8 @@ gh repo create itk-dev/{PROJECTNAME} --template itk-dev/drupal-11-template --pub
 
 ### Prune the project
 
-Prune the project to remove/override template specific files and setup the
-project, with docker config and settings.
+Prune the project to remove/override template specific files and set up the
+project with docker config and settings:
 
 ```shell
 task template-prune PROJECTNAME={PROJECTNAME}
