@@ -196,3 +196,6 @@ private-files/
 
 # Ignore .task.env
 .task.env
+
+# Ignore cache files
+.*.cache
