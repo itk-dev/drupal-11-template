@@ -9,7 +9,7 @@ tasks:
   template-prune:
     cmds:
       - sh -c "echo 'COMPOSE_PROJECT_NAME={{.PROJECTNAME}}\nCOMPOSE_DOMAIN={{.PROJECTNAME}}.local.itkdev.dk' > .env"
-      - sh -c "echo 'TASK_DOCKER_COMPOSE=itkdev-docker-compose' > .task.env"
+      - sh -c "echo 'TASK_DOCKER_COMPOSE="docker compose"' > .task.env"
       - sh -c "rm -R web/themes/custom/TEMPLATE_THEME"
       - sh -c "echo '\$settings[\"trusted_host_patterns\"] = [\n  \"^{{.PROJECTNAME}}\.local\.itkdev\.dk$\"\n];' >> deploy-templates/settings.local.php"
       - sh -c "mkdir -p web/sites/default"
