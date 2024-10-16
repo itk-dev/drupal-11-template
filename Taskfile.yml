@@ -16,6 +16,8 @@ tasks:
       - sh -c "cp deploy-templates/settings.local.php web/sites/default/"
       - sh -c "cp deploy-templates/services.local.yml web/sites/default/"
       - sh -c "cp deploy-templates/Taskfile.yml Taskfile.yml"
+      - sh -c "cp deploy-templates/CHANGELOG.md CHANGELOG.md"
+      - sh -c "sed -i '' -e 's/{PROJECT-NAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md"
       - sh -c "rm -R deploy-templates"
 
     requires:
@@ -23,5 +25,5 @@ tasks:
         - PROJECTNAME
 
     preconditions:
-      - sh: "[[ {{.PROJECTNAME}} =~ ^[a-z\\-]+$ ]]"
-        msg: "PROJECTNAME should only contain lowercase a-z and hyphens"
+      - sh: "[[ {{.PROJECTNAME}} =~ ^[a-z0-9\\-]+$ ]]"
+        msg: "PROJECTNAME should only contain lowercase a-z, digits and hyphens"
