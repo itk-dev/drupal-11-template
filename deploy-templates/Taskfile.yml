@@ -3,7 +3,7 @@ version: '3'
 dotenv: [".task.env", ".env"]
 
 vars:
-  DOCKER_COMPOSE: '{{ .TASK_DOCKER_COMPOSE | default "itkdev-docker-compose-server" }}'
+  DOCKER_COMPOSE: '{{ .TASK_DOCKER_COMPOSE | default "docker compose" }}'
 
 tasks:
 
