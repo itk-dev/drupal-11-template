@@ -3,13 +3,13 @@ version: '3'
 dotenv: [".task.env", ".env"]
 
 vars:
-  DOCKER_COMPOSE: '{{ .TASK_DOCKER_COMPOSE | default "itkdev-docker-compose-server" }}'
+  DOCKER_COMPOSE: '{{ .TASK_DOCKER_COMPOSE | default "docker compose" }}'
 
 tasks:
 
   build-site:new:
     cmds:
-      - "{{.DOCKER_COMPOSE}} up --detach"
+      - task compose -- up --detach
       - "{{.DOCKER_COMPOSE}} exec phpfpm composer install"
       - sh -c "cp web/sites/default/default.settings.php web/sites/default/settings.php"
       - echo -e 'if (file_exists($app_root . "/" . $site_path . "/settings.local.php")) {\n  include $app_root . "/" . $site_path . "/settings.local.php";\n}' >> web/sites/default/settings.php
