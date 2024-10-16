@@ -31,6 +31,8 @@ project with docker config and settings:
 task template-prune PROJECTNAME={PROJECTNAME}
 ```
 
+> [!IMPORTANT]  
+> Replace `{PROJECTNAME}` with your actual project name.
 This will:
 
 - Remove TEMPLATE_THEME and cause coding-standards-check to fail until a new
