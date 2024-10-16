@@ -54,7 +54,7 @@ theme is added.
 
 ### Site installation
 
-Run the following commands to set up the site a new. This will start contaners
+Run the following commands to set up the site a new. This will start containers
 and run composer install, add a settings.php file and run site-install.
 
 ```shell name="site-up"
