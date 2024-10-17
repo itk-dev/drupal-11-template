@@ -19,8 +19,8 @@ web/core/
 /vendor/
 
 # Ignore configuration files that may contain sensitive information.
-sites/*/settings.local.php
-sites/*/services.local.yml
+/web/sites/*/settings.local.php
+/web/sites/*/services.local.yml
 
 # Ignore paths that contain user-generated content.
 sites/*/files
