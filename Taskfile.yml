@@ -17,8 +17,11 @@ tasks:
       - cp deploy-templates/services.local.yml web/sites/default/
       - cp deploy-templates/Taskfile.yml Taskfile.yml
       - cp deploy-templates/CHANGELOG.md CHANGELOG.md
-      - sed -i '' -e 's/{PROJECT-NAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
+      # https://github.com/cicirello/gnu-on-alpine
+      - docker run --rm --volume "${PWD}:/app" --workdir /app cicirello/gnu-on-alpine sed -i -e 's/{PROJECTNAME}/{{ .PROJECTNAME }}/g' README.md CHANGELOG.md
       - rm -R deploy-templates
+      # Remove workflows that make sense only in the template project
+      - rm .github/workflows/template_*.yml
 
     requires:
       vars:
