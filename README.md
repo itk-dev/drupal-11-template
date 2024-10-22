@@ -16,10 +16,10 @@ includes default setup and a starting point for:
 
 ### Build new project from template
 
-Build a new project using this template
+Build a new project using this template (replace `{REPO_NAME}` with a proper Git repository name):
 
 ```shell
-gh repo create itk-dev/{PROJECTNAME} --template itk-dev/drupal-11-template --public --clone
+gh repo create itk-dev/{REPO_NAME} --template itk-dev/drupal-11-template --public --clone
 ```
 
 ### Prune the project
@@ -31,7 +31,7 @@ project with docker config and settings:
 task template-prune PROJECTNAME={PROJECTNAME}
 ```
 
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > Replace `{PROJECTNAME}` with your actual project name.
 This will:
 

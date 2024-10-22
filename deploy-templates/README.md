@@ -1,5 +1,12 @@
 # Readme for {PROJECTNAME}
 
+Create/edit `.task.env` and set a custom [`docker compose`](https://docs.docker.com/compose/) command if needed, e.g.
+
+``` shell
+# .env.task
+TASK_DOCKER_COMPOSE="docker compose --env-file .env.docker.local --file=docker-compose.server.yml --file=docker-compose.server.override.yml"
+```
+
 ## Build assets
 
 ## Site installation

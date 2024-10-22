@@ -2,24 +2,32 @@ version: '3'
 
 dotenv: [".task.env", ".env"]
 
-vars:
-  DOCKER_COMPOSE: '{{ .TASK_DOCKER_COMPOSE | default "itkdev-docker-compose-server" }}'
-
 tasks:
   template-prune:
     cmds:
-      - echo -e 'COMPOSE_PROJECT_NAME={{.PROJECTNAME}}\nCOMPOSE_DOMAIN={{.PROJECTNAME}}.local.itkdev.dk' > .env
-      - echo -e 'TASK_DOCKER_COMPOSE="docker compose"' > .task.env
+      - |
+        cat <<'EOF' > .env
+        COMPOSE_PROJECT_NAME={{ .PROJECTNAME }}
+        COMPOSE_DOMAIN={{ .PROJECTNAME }}.local.itkdev.dk
+        EOF
       - rm -R web/themes/custom/TEMPLATE_THEME
-      - echo -e '$settings[\"trusted_host_patterns\"] = [\n  \"^{{.PROJECTNAME}}\.local\.itkdev\.dk$\"\n];' >> deploy-templates/settings.local.php
+      - |
+        cat <<'EOF' >> deploy-templates/settings.local.php
+
+        /**
+         * Set trusted host pattern.
+         */
+        $settings['trusted_host_patterns'][] = '^{{ .PROJECTNAME }}\.local\.itkdev\.dk$';
+        EOF
+      # Move Drupal configuration files into place.
       - mkdir -p web/sites/default
-      - cp deploy-templates/settings.local.php web/sites/default/
-      - cp deploy-templates/services.local.yml web/sites/default/
-      - cp deploy-templates/Taskfile.yml Taskfile.yml
-      - cp deploy-templates/CHANGELOG.md CHANGELOG.md
+      - mv deploy-templates/{settings.local.php,services.local.yml} web/sites/default/
+      # Move the rest of the files "here"
+      - mv deploy-templates/* .
+      # Set the actual project name in select files.
       # https://github.com/cicirello/gnu-on-alpine
-      - docker run --rm --volume "${PWD}:/app" --workdir /app cicirello/gnu-on-alpine sed -i -e 's/{PROJECTNAME}/{{ .PROJECTNAME }}/g' README.md CHANGELOG.md
-      - rm -R deploy-templates
+      - docker run --rm --volume "${PWD}:/app" --workdir /app cicirello/gnu-on-alpine sed -i'' -e 's/{PROJECTNAME}/{{ .PROJECTNAME }}/g' README.md CHANGELOG.md
+      - rmdir deploy-templates
       # Remove workflows that make sense only in the template project
       - rm .github/workflows/template_*.yml
 
@@ -28,5 +36,5 @@ tasks:
         - PROJECTNAME
 
     preconditions:
-      - sh: "[[ {{.PROJECTNAME}} =~ ^[a-z0-9\\-]+$ ]]"
+      - sh: "[[ {{ .PROJECTNAME }} =~ ^[a-z0-9\\-]+$ ]]"
         msg: "PROJECTNAME should only contain lowercase a-z, digits and hyphens"

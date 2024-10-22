@@ -49,5 +49,6 @@ $settings['config_sync_directory'] = '../config/sync';
 $settings['hash_salt'] = '1234';
 
 /**
- * Set trusted host pattern.
+ * @see https://www.drupal.org/docs/develop/development-tools/enable-verbose-error-logging-for-better-backtracing-and-debugging
  */
+$config['system.logging']['error_level'] = ERROR_REPORTING_DISPLAY_VERBOSE;
