@@ -7,8 +7,8 @@ tasks:
     cmds:
       - |
         cat <<'EOF' > .env
-        COMPOSE_PROJECT_NAME={{ .PROJECTNAME }}
-        COMPOSE_DOMAIN={{ .PROJECTNAME }}.local.itkdev.dk
+        COMPOSE_PROJECT_NAME={{.PROJECTNAME}}
+        COMPOSE_DOMAIN={{.PROJECTNAME}}.local.itkdev.dk
         EOF
       - rm -R web/themes/custom/TEMPLATE_THEME
       - |
@@ -17,7 +17,7 @@ tasks:
         /**
          * Set trusted host pattern.
          */
-        $settings['trusted_host_patterns'][] = '^{{ .PROJECTNAME }}\.local\.itkdev\.dk$';
+        $settings['trusted_host_patterns'][] = '^{{.PROJECTNAME}}\.local\.itkdev\.dk$';
         EOF
       # Move Drupal configuration files into place.
       - mkdir -p web/sites/default
@@ -26,7 +26,7 @@ tasks:
       - mv deploy-templates/* .
       # Set the actual project name in select files.
       # https://github.com/cicirello/gnu-on-alpine
-      - docker run --rm --volume "${PWD}:/app" --workdir /app cicirello/gnu-on-alpine sed -i'' -e 's/{PROJECTNAME}/{{ .PROJECTNAME }}/g' README.md CHANGELOG.md
+      - docker run --rm --volume "${PWD}:/app" --workdir /app cicirello/gnu-on-alpine sed -i'' -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
       - rmdir deploy-templates
       # Remove workflows that make sense only in the template project
       - rm .github/workflows/template_*.yml
@@ -36,5 +36,5 @@ tasks:
         - PROJECTNAME
 
     preconditions:
-      - sh: "[[ {{ .PROJECTNAME }} =~ ^[a-z0-9\\-]+$ ]]"
+      - sh: "[[ {{.PROJECTNAME}} =~ ^[a-z0-9\\-]+$ ]]"
         msg: "PROJECTNAME should only contain lowercase a-z, digits and hyphens"
