@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
+* [PR-7](https://github.com/itk-dev/drupal-11-template/pull/7)
+  Miscellaneous
+
 ### Added
 
 * Template files added

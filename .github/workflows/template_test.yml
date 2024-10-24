@@ -1,0 +1,25 @@
+name: Template test
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+
+jobs:
+  test-prune-project:
+    runs-on: ubuntu-latest
+    name: Test prune project
+    env:
+      PROJECT_NAME: my-test-project
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # https://github.com/marketplace/actions/setup-go-task-task-taskfile
+      - name: Setup Task
+        uses: pnorton5432/setup-task@v1
+
+      - name: Prune project
+        run: |
+          task template-prune PROJECTNAME=$PROJECT_NAME
