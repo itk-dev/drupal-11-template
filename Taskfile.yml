@@ -4,6 +4,8 @@ dotenv: [".task.env", ".env"]
 
 tasks:
   template-prune:
+    name: Prune installation
+    desc: Update the repository's files to match current project name
     cmds:
       - |
         cat <<'EOF' > .env
@@ -25,8 +27,7 @@ tasks:
       # Move the rest of the files "here"
       - mv deploy-templates/* .
       # Set the actual project name in select files.
-      # https://github.com/cicirello/gnu-on-alpine
-      - docker run --rm --volume "${PWD}:/app" --workdir /app cicirello/gnu-on-alpine sed -i'' -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
+      - sed -i'' -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
       - rmdir deploy-templates
       # Remove workflows that make sense only in the template project
       - rm .github/workflows/template_*.yml
@@ -38,3 +39,9 @@ tasks:
     preconditions:
       - sh: "[[ {{.PROJECTNAME}} =~ ^[a-z0-9\\-]+$ ]]"
         msg: "PROJECTNAME should only contain lowercase a-z, digits and hyphens"
+
+  docker:install:
+      name: Install ITKDev docker compose
+      desc: Install docker compose templates (to get the newest version)
+      cmds:
+        - itkdev-docker-compose template:install drupal-10 --force

@@ -22,6 +22,12 @@ Build a new project using this template (replace `{REPO_NAME}` with a proper Git
 gh repo create itk-dev/{REPO_NAME} --template itk-dev/drupal-11-template --public --clone
 ```
 
+Install the newest docker compose setup from [https://github.com/itk-dev/devops_itkdev-docker](https://github.com/itk-dev/devops_itkdev-docker).
+
+```shell
+task docker:install
+```
+
 ### Prune the project
 
 Prune the project to remove/override template specific files and set up the
