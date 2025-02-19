@@ -16,9 +16,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # https://github.com/marketplace/actions/setup-go-task-task-taskfile
+      # https://taskfile.dev/installation/#github-actions
       - name: Setup Task
-        uses: pnorton5432/setup-task@v1
+        uses: arduino/setup-task@v2
 
       - name: Prune project
         run: |
