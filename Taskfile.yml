@@ -26,7 +26,7 @@ tasks:
     name: Prune installation
     desc: Update the repository's files to match current project name
     cmds:
-      - echo "{{.DETECTED_OS}}"
+      - echo $OSTYPE
       - |
         cat <<'EOF' > .env
         COMPOSE_PROJECT_NAME={{.PROJECTNAME}}
