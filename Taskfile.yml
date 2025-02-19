@@ -25,7 +25,7 @@ tasks:
       - mkdir -p web/sites/default
       - mv deploy-templates/{settings.local.php,services.local.yml} web/sites/default/
 
-      - mv deploy-templates/{pr.yml} .github/workflows/
+      - mv deploy-templates/pr.yml .github/workflows/
       # Move the rest of the files "here"
       - mv deploy-templates/* .
       # Set the actual project name in select files.
