@@ -6,28 +6,38 @@ vars:
   DOCKER_COMPOSE: '{{ .TASK_DOCKER_COMPOSE | default "docker compose" }}'
 
 tasks:
+  compose:
+    cmds:
+      - '{{ .DOCKER_COMPOSE }} {{ .CLI_ARGS }}'
+    silent: true
+
+  composer:
+    cmds:
+      - task compose -- exec phpfpm composer {{ .CLI_ARGS }}
+    silent: true
+
+  drush:
+    cmds:
+      - task compose -- exec --no-TTY phpfpm vendor/bin/drush {{ .CLI_ARGS }}
+    silent: true
 
   build-site:new:
     cmds:
-      - task compose -- up --detach
-      - "{{.DOCKER_COMPOSE}} exec phpfpm composer install"
-      - sh -c "cp web/sites/default/default.settings.php web/sites/default/settings.php"
-      - echo -e 'if (file_exists($app_root . "/" . $site_path . "/settings.local.php")) {\n  include $app_root . "/" . $site_path . "/settings.local.php";\n}' >> web/sites/default/settings.php
-      - "{{.DOCKER_COMPOSE}} drush site-install minimal -y"
+       - task drush -- site:install minimal -y
 
   build-site:existing-conf:
     cmds:
-      - "{{.DOCKER_COMPOSE}} up --detach"
-      - "{{.DOCKER_COMPOSE}} exec phpfpm composer install"
-      - "{{.DOCKER_COMPOSE}} drush site-install --existing-config --yes"
+      - task compose -- up --detach
+      - task composer -- install
+      - task drush -- site-install --existing-config --yes
 
   simulate-github-actions:
     cmds:
-      - "{{.DOCKER_COMPOSE}} exec phpfpm composer normalize"
+      - task composer -- normalize
       - task check-code
 
   check-code:
     cmds:
       - docker run --rm --volume "$PWD:/md" peterdavehello/markdownlint markdownlint $(git ls-files *.md)
-      - "{{.DOCKER_COMPOSE}} exec phpfpm composer code-analysis"
-      - "{{.DOCKER_COMPOSE}} exec phpfpm composer coding-standards-check/twig-cs-fixer"
+      - task composer -- code-analysis
+      - task composer -- coding-standards-check/twig-cs-fixer
