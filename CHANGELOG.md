@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
+## [1.0.0]
+
 * [PR-7](https://github.com/itk-dev/drupal-11-template/pull/7)
   Miscellaneous
 
