@@ -4,24 +4,10 @@ dotenv: [".task.env", ".env"]
 env:
   OSTYPE:
     sh: bash -c 'echo $OSTYPE'
+
 vars:
-  DETECTED_OS:
-    sh: |
-      if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        echo "linux-gnu"
-      elif [[ "$OSTYPE" == "darwin"* ]]; then
-        echo "darwin"
-      elif [[ "$OSTYPE" == "cygwin" ]]; then
-        echo "cygwin"
-      elif [[ "$OSTYPE" == "msys" ]]; then
-        echo "msys"
-      elif [[ "$OSTYPE" == "win32" ]]; then
-        echo "win32"
-      elif [[ "$OSTYPE" == "freebsd"* ]]; then
-        echo "freebsd"
-      else
-        echo "unknown"
-      fi
+  OSTYPE:
+    sh: echo ''123
 
 tasks:
   template-prune:
@@ -51,14 +37,14 @@ tasks:
       # Move the rest of the files "here"
       - mv deploy-templates/* .
       # Set the actual project name in select files.
-      - |
-        if [[ "$OSTYPE" == linux-gnu* ]]; then
+      - sh -c 
+        'if [[ "$OSTYPE" == linux-gnu* ]]; then
           sed -i -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
         elif [[ "$OSTYPE" == darwin* ]]; then
           sed -i '' -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
         else
           echo "Unknown OS!"
-        fi
+        fi'
       - rmdir deploy-templates
       # Remove workflows that make sense only in the template project
       - rm .github/workflows/template_*.yml
