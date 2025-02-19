@@ -1,7 +1,9 @@
 version: '3'
 
 dotenv: [".task.env", ".env"]
-
+env:
+  OSTYPE:
+    sh: bash -c 'echo $OSTYPE'
 vars:
   DETECTED_OS:
     sh: |
@@ -26,7 +28,7 @@ tasks:
     name: Prune installation
     desc: Update the repository's files to match current project name
     cmds:
-      - echo $OSTYPE
+      - echo "{{.OSTYPE}}"
       - |
         cat <<'EOF' > .env
         COMPOSE_PROJECT_NAME={{.PROJECTNAME}}
