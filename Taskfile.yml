@@ -29,6 +29,7 @@ tasks:
       # Move the rest of the files "here"
       - mv deploy-templates/* .
       # Set the actual project name in select files.
+      - ls
       - sed -i '' -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
       - rmdir deploy-templates
       # Remove workflows that make sense only in the template project
