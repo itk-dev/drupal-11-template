@@ -30,10 +30,12 @@ tasks:
       - mv deploy-templates/* .
       # Set the actual project name in select files.
       - |
-        if [[ "$OSTYPE" == "darwin"* ]]; then
+        if [[ "$OSTYPE" == linux-gnu* ]]; then
+          sed -i -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
+        elif [[ "$OSTYPE" == darwin* ]]; then
           sed -i '' -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
         else
-          sed -i -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
+          echo "Unknown OS!"
         fi
       - rmdir deploy-templates
       # Remove workflows that make sense only in the template project
