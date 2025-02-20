@@ -24,10 +24,16 @@ tasks:
       # Move Drupal configuration files into place.
       - mkdir -p web/sites/default
       - mv deploy-templates/{settings.local.php,services.local.yml} web/sites/default/
+
+      - mv deploy-templates/pr.yml .github/workflows/
+
+      # Set the actual project name in select files (Sed command different between mac and linux).
+      - task rename-linux
+      - task rename-mac
+
       # Move the rest of the files "here"
       - mv deploy-templates/* .
-      # Set the actual project name in select files.
-      - sed -i '' -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
+      # Remove deploy templates
       - rmdir deploy-templates
       # Remove workflows that make sense only in the template project
       - rm .github/workflows/template_*.yml
@@ -45,3 +51,15 @@ tasks:
       desc: Install docker compose templates (to get the newest version)
       cmds:
         - itkdev-docker-compose template:install drupal-10 --force
+
+  rename-linux:
+    cmds:
+      - sed -i -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
+    platforms:
+      ['linux']
+
+  rename-mac:
+    cmds:
+      - sed -i '' -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
+    platforms:
+      ['darwin']
