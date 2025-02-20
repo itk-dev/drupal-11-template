@@ -3,7 +3,7 @@ version: '3'
 dotenv: [".task.env", ".env"]
 
 tasks:
-  template  -prune:
+  template-prune:
     name: Prune installation
     desc: Update the repository's files to match current project name
     cmds:
@@ -30,7 +30,7 @@ tasks:
       # Set the actual project name in select files.
       - task rename-linux
       - task rename-mac
-       
+
       # Move the rest of the files "here"
       - mv deploy-templates/* .
       # Remove deploy templates
@@ -53,16 +53,12 @@ tasks:
         - itkdev-docker-compose template:install drupal-10 --force
 
   rename-linux:
-    name: Rename variables linux
-    desc: Rename variables in select files linux (.github action)
     cmds:
       - sed -i -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
     platforms:
       ['linux']
 
   rename-mac:
-    name: Rename variables mac
-    desc: Rename variables in select files mac
     cmds:
       - sed -i '' -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
     platforms:
