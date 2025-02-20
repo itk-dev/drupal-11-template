@@ -43,9 +43,6 @@ tasks:
     preconditions:
       - sh: "[[ {{.PROJECTNAME}} =~ ^[a-z0-9\\-]+$ ]]"
         msg: "PROJECTNAME should only contain lowercase a-z, digits and hyphens"
-      - sh: "[[ {{.OSTYPE}} == linux-gnu* ]]"
-        msg: "This command only works on linux"
-
 
   docker:install:
       name: Install ITKDev docker compose
