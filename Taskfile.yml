@@ -27,7 +27,7 @@ tasks:
 
       - mv deploy-templates/pr.yml .github/workflows/
 
-      # Set the actual project name in select files.
+      # Set the actual project name in select files (Sed command different between mac and linux).
       - task rename-linux
       - task rename-mac
 
