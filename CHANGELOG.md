@@ -9,12 +9,15 @@ and this project adheres to [Semantic Versioning].
 
 ## [1.0.0]
 
-* [PR-7](https://github.com/itk-dev/drupal-11-template/pull/7)
-  Miscellaneous
-
 ### Added
 
 * Template files added
+
+### Changed
+* [PR-9](https://github.com/itk-dev/drupal-11-template/pull/9)
+    - Fixed github actions.
+* [PR-7](https://github.com/itk-dev/drupal-11-template/pull/7)
+    - Miscellaneous
 
 [Keep a Changelog]: https://keepachangelog.com/en/1.1.0/
 [Semantic Versioning]: https://semver.org/spec/v2.0.0.html
