@@ -1,20 +1,12 @@
 version: '3'
 
 dotenv: [".task.env", ".env"]
-env:
-  OSTYPE:
-    sh: bash -c 'echo $OSTYPE'
-
-vars:
-  OSTYPE:
-    sh: echo ''123
 
 tasks:
   template-prune:
     name: Prune installation
     desc: Update the repository's files to match current project name
     cmds:
-      - echo "{{.OSTYPE}}"
       - |
         cat <<'EOF' > .env
         COMPOSE_PROJECT_NAME={{.PROJECTNAME}}
@@ -37,14 +29,9 @@ tasks:
       # Move the rest of the files "here"
       - mv deploy-templates/* .
       # Set the actual project name in select files.
-      - sh -c 
-        'if [[ "$OSTYPE" == linux-gnu* ]]; then
-          sed -i -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
-        elif [[ "$OSTYPE" == darwin* ]]; then
-          sed -i '' -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
-        else
-          echo "Unknown OS!"
-        fi'
+      - task rename-linux
+      - task rename-mac
+      # Remove deploy templates
       - rmdir deploy-templates
       # Remove workflows that make sense only in the template project
       - rm .github/workflows/template_*.yml
@@ -56,9 +43,28 @@ tasks:
     preconditions:
       - sh: "[[ {{.PROJECTNAME}} =~ ^[a-z0-9\\-]+$ ]]"
         msg: "PROJECTNAME should only contain lowercase a-z, digits and hyphens"
+      - sh: "[[ {{.OSTYPE}} == linux-gnu* ]]"
+        msg: "This command only works on linux"
+
 
   docker:install:
       name: Install ITKDev docker compose
       desc: Install docker compose templates (to get the newest version)
       cmds:
         - itkdev-docker-compose template:install drupal-10 --force
+
+  rename-linux:
+    name: Rename variables linux
+    desc: Rename variables in select files linux (.github action)
+    cmds:
+      - sed -i -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
+    platforms:
+      ['linux']
+
+  rename-mac:
+    name: Rename variables mac
+    desc: Rename variables in select files mac
+    cmds:
+      - sed -i '' -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
+    platforms:
+      ['darwin']
