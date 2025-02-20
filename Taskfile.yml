@@ -3,7 +3,7 @@ version: '3'
 dotenv: [".task.env", ".env"]
 
 tasks:
-  template-prune:
+  template  -prune:
     name: Prune installation
     desc: Update the repository's files to match current project name
     cmds:
@@ -26,11 +26,13 @@ tasks:
       - mv deploy-templates/{settings.local.php,services.local.yml} web/sites/default/
 
       - mv deploy-templates/pr.yml .github/workflows/
-      # Move the rest of the files "here"
-      - mv deploy-templates/* .
+
       # Set the actual project name in select files.
       - task rename-linux
       - task rename-mac
+       
+      # Move the rest of the files "here"
+      - mv deploy-templates/* .
       # Remove deploy templates
       - rmdir deploy-templates
       # Remove workflows that make sense only in the template project
