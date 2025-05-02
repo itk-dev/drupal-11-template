@@ -52,14 +52,6 @@ tasks:
       cmds:
         - itkdev-docker-compose template:install drupal-10 --force
 
-  rename-linux:
+  rename:
     cmds:
-      - sed -i -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
-    platforms:
-      ['linux']
-
-  rename-mac:
-    cmds:
-      - sed -i '' -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
-    platforms:
-      ['darwin']
+      - docker run --rm --volume=$PWD:/app itkdev/php8.3-fpm:latest sed -i -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md

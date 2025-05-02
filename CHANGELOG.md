@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning].
 * Template files added
 
 ### Changed
+
 * [PR-9](https://github.com/itk-dev/drupal-11-template/pull/9)
     - Fixed github actions.
 * [PR-7](https://github.com/itk-dev/drupal-11-template/pull/7)
