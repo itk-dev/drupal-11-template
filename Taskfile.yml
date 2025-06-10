@@ -49,8 +49,9 @@ tasks:
       name: Install ITKDev docker compose
       desc: Install docker compose templates (to get the newest version)
       cmds:
-        - itkdev-docker-compose template:install drupal-10 --force
+        - itkdev-docker-compose template:install drupal-11 --force
 
   rename:
     cmds:
       - docker run --rm --volume=$PWD:/app itkdev/php8.3-fpm:latest sed -i -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
+    platforms: ['darwin', 'linux']
