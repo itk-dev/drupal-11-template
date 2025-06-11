@@ -12,6 +12,10 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+          "type": "git",
+          "url": "https://github.com/itk-dev/itkdev_base_theme"
         }
     ],
     "require": {
@@ -19,6 +23,7 @@
         "drupal/core-composer-scaffold": "^11.0",
         "drupal/core-project-message": "^11.0",
         "drupal/core-recommended": "^11.0",
+        "itk-dev/os2forms_failed_jobs": "dev-feature/add-files",
         "drush/drush": "^13.2"
     },
     "require-dev": {
