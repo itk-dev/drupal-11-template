@@ -21,10 +21,13 @@ tasks:
          */
         $settings['trusted_host_patterns'][] = '^{{.PROJECTNAME}}\.local\.itkdev\.dk$';
         EOF
+
+      # Add docker setup
+      - task docker:install
+
       # Move Drupal configuration files into place.
       - mkdir -p web/sites/default
       - mv deploy-templates/{settings.local.php,services.local.yml} web/sites/default/
-
       - mv deploy-templates/pr.yml .github/workflows/
 
       # Set the actual project name in select files (Sed command different between mac and linux).

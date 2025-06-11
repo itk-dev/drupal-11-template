@@ -23,7 +23,7 @@
         "drupal/core-composer-scaffold": "^11.0",
         "drupal/core-project-message": "^11.0",
         "drupal/core-recommended": "^11.0",
-        "itk-dev/itkdev_base_theme": "dev-feature/add-files",
+        "itk-dev/itkdev-base-theme": "dev-feature/add-files",
         "drush/drush": "^13.2"
     },
     "require-dev": {
