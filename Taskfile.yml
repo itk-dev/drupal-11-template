@@ -7,20 +7,8 @@ tasks:
     name: Prune installation
     desc: Update the repository's files to match current project name
     cmds:
-      - |
-        cat <<'EOF' > .env
-        COMPOSE_PROJECT_NAME={{.PROJECTNAME}}
-        COMPOSE_DOMAIN={{.PROJECTNAME}}.local.itkdev.dk
-        EOF
-      - rm -R web/themes/custom/TEMPLATE_THEME
-      - |
-        cat <<'EOF' >> deploy-templates/settings.local.php
-
-        /**
-         * Set trusted host pattern.
-         */
-        $settings['trusted_host_patterns'][] = '^{{.PROJECTNAME}}\.local\.itkdev\.dk$';
-        EOF
+      # Modify contents of settings.local.yml and create .env file.
+      - PROJECTNAME={{.PROJECTNAME}} ./deploy-templates/scripts/modifyFilesContent.sh
 
       # Add docker setup
       - task docker:install
@@ -33,13 +21,15 @@ tasks:
       # Set the actual project name in select files (Sed command different between mac and linux).
       - task rename
 
+      # Remove build scripts
+      - rmdir deploy-templates/scripts
+
       # Move the rest of the files "here"
       - mv deploy-templates/* .
       # Remove deploy templates
       - rmdir deploy-templates
       # Remove workflows that make sense only in the template project
       - rm .github/workflows/template_*.yml
-
     requires:
       vars:
         - PROJECTNAME

@@ -24,6 +24,15 @@ tasks:
   build-site:new:
     cmds:
        - task drush -- site:install minimal -y
+       - task compose -- run phpfpm php /app/web/core/scripts/drupal generate-theme {{.THEMENAME}} --name="{{.THEMENAME_READABLE}}" --path="themes/custom" --starterkit=starterkit_project_theme
+    requires:
+      vars:
+        - THEMENAME
+        - THEMENAME_READABLE
+
+    preconditions:
+      - sh: "[[ {{.THEMENAME}} =~ ^[a-z\\_]+$ ]]"
+        msg: "THEMENAME should only contain lowercase a-z and underscores"
 
   build-site:existing-conf:
     cmds:
@@ -38,6 +47,6 @@ tasks:
 
   check-code:
     cmds:
-      - docker run --rm --volume "$PWD:/md" peterdavehello/markdownlint markdownlint $(git ls-files *.md)
+      - docker run --rm --volume "$PWD:/md" itkdev/markdownlint '**/*.md'
       - task composer -- code-analysis
       - task composer -- coding-standards-check/twig-cs-fixer
