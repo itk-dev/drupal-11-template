@@ -7,21 +7,25 @@ vars:
 
 tasks:
   compose:
+    desc: Run docker compose or itkdev-docker-compose if TASK_DOCKER_COMPOSE is set in .task.env
     cmds:
       - '{{ .DOCKER_COMPOSE }} {{ .CLI_ARGS }}'
     silent: true
 
   composer:
+    desc: Run composer through phpfpm container
     cmds:
       - task compose -- exec phpfpm composer {{ .CLI_ARGS }}
     silent: true
 
   drush:
+    desc: Run drush through phpfpm container
     cmds:
       - task compose -- exec --no-TTY phpfpm vendor/bin/drush {{ .CLI_ARGS }}
     silent: true
 
   build-site:new:
+    desc: Build a new site with a custom theme
     cmds:
        - task drush -- site:install minimal -y
        - task compose -- run phpfpm php /app/web/core/scripts/drupal generate-theme {{.THEMENAME}} --name="{{.THEMENAME_READABLE}}" --path="themes/custom" --starterkit=starterkit_project_theme
@@ -35,17 +39,21 @@ tasks:
         msg: "THEMENAME should only contain lowercase a-z and underscores"
 
   build-site:existing-conf:
+    desc: Build a new site from existing site configuration
     cmds:
       - task compose -- up --detach
       - task composer -- install
       - task drush -- site-install --existing-config --yes
 
-  simulate-github-actions:
-    cmds:
-      - task composer -- normalize
-      - task check-code
-
   check-code:
+    desc: Check php, twig and markdown code
+    cmds:
+      - docker run --rm --volume "$PWD:/md" itkdev/markdownlint '**/*.md'
+      - task composer -- code-analysis
+      - task composer -- coding-standards-check/twig-cs-fixer
+
+  apply-coding-styles:
+    desc: Apply coding styles to twig and php
     cmds:
       - docker run --rm --volume "$PWD:/md" itkdev/markdownlint '**/*.md'
       - task composer -- code-analysis

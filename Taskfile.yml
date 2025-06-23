@@ -22,7 +22,7 @@ tasks:
       - task rename
 
       # Remove build scripts
-      - rmdir deploy-templates/scripts
+      - rm -Rf deploy-templates/scripts
 
       # Move the rest of the files "here"
       - mv deploy-templates/* .
