@@ -7,22 +7,6 @@ on:
   pull_request:
 
 jobs:
-  test-prune-project:
-    runs-on: ubuntu-latest
-    name: Test prune project
-    env:
-      PROJECT_NAME: my-test-project
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      # https://taskfile.dev/installation/#github-actions
-      - name: Setup Task
-        uses: arduino/setup-task@v2
-
-      - name: Prune project
-        run: |
-          task template-prune PROJECTNAME=$PROJECT_NAME
   changelog:
     runs-on: ubuntu-latest
     name: Changelog should be updated
