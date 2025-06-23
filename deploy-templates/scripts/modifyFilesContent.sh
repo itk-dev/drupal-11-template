@@ -1,10 +1,5 @@
 #!/bin/bash
 
-file=".env"
-echo "COMPOSE_PROJECT_NAME=$PROJECTNAME" > $file
-echo "COMPOSE_DOMAIN=$PROJECTNAME.local.itkdev.dk" >> $file
-cat $file
-
 file="./deploy-templates/settings.local.php"
 echo "" >> $file
 echo "/**" >> $file
