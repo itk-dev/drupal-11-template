@@ -1,0 +1,24 @@
+# Ignore drupal core stuff
+.docker
+.github
+config
+recipes
+vendor
+web/core
+
+# Ignore contributed modules/themes
+web/themes/contrib
+web/modules/contrib
+web/profiles/contrib
+
+# Ignore sites folder
+web/sites
+
+# Ignore all file types
+*.*
+
+# Except .md filetype
+!*.md
+
+# Except Except Drupal default README.md
+web/README.md
