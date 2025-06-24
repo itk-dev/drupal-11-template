@@ -27,8 +27,10 @@ tasks:
   build-site:new:
     desc: Build a new site with a custom theme
     cmds:
-       - task drush -- site:install minimal -y
-       - task compose -- run phpfpm php /app/web/core/scripts/drupal generate-theme {{.THEMENAME}} --name="{{.THEMENAME_READABLE}}" --path="themes/custom" --starterkit=starterkit_project_theme
+      - task compose -- up --detach
+      - task composer -- install
+      - task drush -- site:install minimal -y
+      - task compose -- run phpfpm php /app/web/core/scripts/drupal generate-theme {{.THEMENAME}} --name="{{.THEMENAME_READABLE}}" --path="themes/custom" --starterkit=starterkit_project_theme
     requires:
       vars:
         - THEMENAME
