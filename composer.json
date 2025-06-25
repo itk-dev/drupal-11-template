@@ -27,7 +27,7 @@
         "drupal/core-project-message": "^11.2",
         "drupal/core-recommended": "^11.2",
         "drupal/hook_event_dispatcher": "^4.2",
-        "itk-dev/itkdev-base-theme": "dev-feature/add-files",
+        "itk-dev/itkdev_base_theme": "dev-feature/add-files",
         "drush/drush": "^13.2"
     },
     "require-dev": {
@@ -95,8 +95,7 @@
         },
         "patches": {
           "drupal/core": {
-            "Add an Autowire trait for plugins (https://www.drupal.org/project/drupal/issues/3294266)": "https://www.drupal.org/files/issues/2023-08-18/3294266-24.patch",
-            "Disable forced configuration langcode (https://www.drupal.org/project/drupal/issues/3150540)": "https://www.drupal.org/files/issues/2024-08-06/3150540-43-MR9103-11.x.diff"
+            "Add an Autowire trait for plugins (https://www.drupal.org/project/drupal/issues/3294266)": "https://www.drupal.org/files/issues/2023-08-18/3294266-24.patch"
           }
         },
         "drupal-core-project-message": {

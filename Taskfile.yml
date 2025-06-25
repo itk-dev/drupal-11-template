@@ -1,6 +1,6 @@
 version: '3'
 
-dotenv: [".task.env", ".env"]
+dotenv: [".env.task", ".env"]
 
 tasks:
   template-prune:
