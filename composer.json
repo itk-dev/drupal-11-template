@@ -39,7 +39,8 @@
       "phpstan/phpstan-deprecation-rules": "^1.1"
     },
     "conflict": {
-        "drupal/drupal": "*"
+        "drupal/drupal": "*",
+        "dealerdirect/phpcodesniffer-composer-installer": "1.1.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

@@ -65,5 +65,5 @@ tasks:
       - task compose -- exec phpfpm vendor/bin/twig-cs-fixer lint web/themes/custom/*/templates --fix
       - docker compose run --rm prettier '**/*.{yml,yaml}' --write
       - docker compose run --rm prettier 'web/themes/custom/**/js/**/*.js' --write
-      - docker compose run --rm prettier 'web/themes/custom/**/js/**/*.js' --write
+      - docker compose run --rm prettier 'web/themes/custom/**/css/**/*.{css,scss}' --write
       - docker run --rm --volume "$PWD:/md" itkdev/markdownlint '**/*.md' --fix

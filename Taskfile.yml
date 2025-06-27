@@ -4,7 +4,6 @@ dotenv: [".env.task", ".env"]
 
 tasks:
   template-prune:
-    name: Prune installation
     desc: Update the repository's files to match current project name
     cmds:
       # Modify contents of settings.local.yml and create .env file.
@@ -16,7 +15,6 @@ tasks:
       # Move Drupal configuration files into place.
       - mkdir -p web/sites/default
       - mv deploy-templates/{settings.local.php,services.local.yml} web/sites/default/
-      - mv deploy-templates/pr.yml .github/workflows/
 
       # Set the actual project name in select files (Sed command different between mac and linux).
       - task rename
@@ -39,13 +37,14 @@ tasks:
         msg: "PROJECTNAME should only contain lowercase a-z, digits and hyphens"
 
   docker:install:
-      name: Install ITKDev docker compose
       desc: Install docker compose templates (to get the newest version)
+      internal: true
       cmds:
         - itkdev-docker-compose template:install drupal-11 --force
 
   rename:
     desc: Sed command fails in github actions, so we require darwin platform to avoid. @todo better approach.
+    internal: true
     cmds:
       - docker run --rm --volume=$PWD:/app itkdev/php8.3-fpm:latest sed -i -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
     platforms: ['darwin']
