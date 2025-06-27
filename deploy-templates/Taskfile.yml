@@ -7,7 +7,7 @@ vars:
 
 tasks:
   compose:
-    desc: Run docker compose or itkdev-docker-compose if TASK_DOCKER_COMPOSE is set in .task.env
+    desc: Run docker compose or itkdev-docker-compose if TASK_DOCKER_COMPOSE is set in .env.task
     cmds:
       - '{{ .DOCKER_COMPOSE }} {{ .CLI_ARGS }}'
     silent: true
