@@ -1,37 +1,33 @@
 version: '3'
 
-dotenv: [".task.env", ".env"]
+dotenv: [".env.task", ".env"]
 
 tasks:
   template-prune:
-    name: Prune installation
     desc: Update the repository's files to match current project name
     cmds:
-      - |
-        cat <<'EOF' > .env
-        COMPOSE_PROJECT_NAME={{.PROJECTNAME}}
-        COMPOSE_DOMAIN={{.PROJECTNAME}}.local.itkdev.dk
-        EOF
-      - rm -R web/themes/custom/TEMPLATE_THEME
-      - |
-        cat <<'EOF' >> deploy-templates/settings.local.php
+      # Modify contents of settings.local.yml and create .env file.
+      - PROJECTNAME={{.PROJECTNAME}} ./deploy-templates/scripts/modifyFilesContent.sh
 
-        /**
-         * Set trusted host pattern.
-         */
-        $settings['trusted_host_patterns'][] = '^{{.PROJECTNAME}}\.local\.itkdev\.dk$';
-        EOF
+      # Add docker setup
+      - task docker:install
+
       # Move Drupal configuration files into place.
       - mkdir -p web/sites/default
       - mv deploy-templates/{settings.local.php,services.local.yml} web/sites/default/
+
+      # Set the actual project name in select files (Sed command different between mac and linux).
+      - task rename
+
+      # Remove build scripts
+      - rm -Rf deploy-templates/scripts
+
       # Move the rest of the files "here"
       - mv deploy-templates/* .
-      # Set the actual project name in select files.
-      - sed -i '' -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
+      # Remove deploy templates
       - rmdir deploy-templates
       # Remove workflows that make sense only in the template project
       - rm .github/workflows/template_*.yml
-
     requires:
       vars:
         - PROJECTNAME
@@ -41,7 +37,12 @@ tasks:
         msg: "PROJECTNAME should only contain lowercase a-z, digits and hyphens"
 
   docker:install:
-      name: Install ITKDev docker compose
       desc: Install docker compose templates (to get the newest version)
       cmds:
-        - itkdev-docker-compose template:install drupal-10 --force
+        - itkdev-docker-compose template:install drupal-11 --force
+
+  rename:
+    desc: Sed command fails in github actions, so we require darwin platform to avoid. @todo better approach.
+    cmds:
+      - docker run --rm --volume=$PWD:/app itkdev/php8.3-fpm:latest sed -i -e 's/{PROJECTNAME}/{{.PROJECTNAME}}/g' README.md CHANGELOG.md
+    platforms: ['darwin']

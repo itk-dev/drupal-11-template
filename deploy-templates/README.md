@@ -1,10 +1,10 @@
 # Readme for {PROJECTNAME}
 
-Create/edit `.task.env` and set a custom [`docker compose`](https://docs.docker.com/compose/) command if needed, e.g.
+Create/edit `.env.task` and set a custom [`docker compose`](https://docs.docker.com/compose/) command if needed, e.g.
 
 ``` shell
 # .env.task
-TASK_DOCKER_COMPOSE="docker compose --env-file .env.docker.local --file=docker-compose.server.yml --file=docker-compose.server.override.yml"
+TASK_DOCKER_COMPOSE=itkdev-docker-compose
 ```
 
 ## Build assets
@@ -56,40 +56,21 @@ open "http://$(docker compose port nginx 8080)"
 Export config created from drupal:
 
 ```shell
-itkdev-docker-compose drush config:export
+task drush -- config:export
 ```
 
 Import config from config files:
 
 ```shell
-itkdev-docker-compose drush config:import
+task drush -- config:import
 ```
 
 ### Coding standards
 
-```shell name=coding-standards-composer
-task compose -- exec phpfpm composer install
-task compose -- exec phpfpm composer normalize
+```shell name=coding-standards-check
+task code:check
 ```
 
-```shell name=coding-standards-php
-docker compose exec phpfpm composer install
-docker compose exec phpfpm composer coding-standards-apply/phpcs
-docker compose exec phpfpm composer coding-standards-check/phpcs
-```
-
-```shell name=coding-standards-twig
-docker compose exec phpfpm composer install
-docker compose exec phpfpm composer coding-standards-apply/twig-cs-fixer
-docker compose exec phpfpm composer coding-standards-check/twig-cs-fixer
-```
-
-```shell name=code-analysis
-docker compose exec phpfpm composer install
-docker compose exec phpfpm composer code-analysis
-```
-
-```shell name=coding-standards-markdown
-docker run --platform linux/amd64 --rm --volume "$PWD:/md" peterdavehello/markdownlint markdownlint $(git ls-files *.md) --fix
-docker run --platform linux/amd64 --rm --volume "$PWD:/md" peterdavehello/markdownlint markdownlint $(git ls-files *.md)
+```shell name=coding-standards-apply
+task code:apply-standards
 ```

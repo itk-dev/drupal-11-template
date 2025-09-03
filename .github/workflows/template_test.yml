@@ -7,19 +7,17 @@ on:
   pull_request:
 
 jobs:
-  test-prune-project:
+  changelog:
     runs-on: ubuntu-latest
-    name: Test prune project
-    env:
-      PROJECT_NAME: my-test-project
+    name: Changelog should be updated
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
-      # https://taskfile.dev/installation/#github-actions
-      - name: Setup Task
-        uses: arduino/setup-task@v2
+      - name: Git fetch
+        run: git fetch
 
-      - name: Prune project
-        run: |
-          task template-prune PROJECTNAME=$PROJECT_NAME
+      - name: Check that changelog has been updated.
+        run: git diff --exit-code origin/${{ github.base_ref }} -- CHANGELOG.md && exit 1 || exit 0

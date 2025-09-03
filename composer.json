@@ -15,14 +15,19 @@
         }
     ],
     "require": {
+        "php": "^8.3",
+        "chx/drupal-issue-fork": "^1.0",
         "composer/installers": "^2.0",
-        "drupal/core-composer-scaffold": "^11.0",
-        "drupal/core-project-message": "^11.0",
-        "drupal/core-recommended": "^11.0",
+        "cweagans/composer-patches": "^1.7",
+        "drupal/core-composer-scaffold": "^11.2",
+        "drupal/core-project-message": "^11.2",
+        "drupal/core-recommended": "^11.2",
+        "drupal/hook_event_dispatcher": "^4.2",
+        "itk-dev/itkdev_base_theme": "^1.0",
         "drush/drush": "^13.2"
     },
     "require-dev": {
-      "drupal/core-dev": "^11.0",
+      "drupal/core-dev": "^11.2",
       "ergebnis/composer-normalize": "^2.43",
       "vincentlanglet/twig-cs-fixer": "^3.0",
       "mglaman/phpstan-drupal": "^1.1",
@@ -30,13 +35,16 @@
       "phpstan/phpstan-deprecation-rules": "^1.1"
     },
     "conflict": {
-        "drupal/drupal": "*"
+        "drupal/drupal": "*",
+        "dealerdirect/phpcodesniffer-composer-installer": "1.1.0"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
         "allow-plugins": {
+            "chx/drupal-issue-fork": true,
             "composer/installers": true,
+            "cweagans/composer-patches": true,
             "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
             "phpstan/extension-installer": true,
@@ -82,6 +90,11 @@
                 "type:drupal-custom-theme"
             ]
         },
+        "patches": {
+          "drupal/core": {
+            "Add an Autowire trait for plugins (https://www.drupal.org/project/drupal/issues/3294266)": "https://www.drupal.org/files/issues/2023-08-18/3294266-24.patch"
+          }
+        },
         "drupal-core-project-message": {
             "include-keys": [
                 "homepage",
@@ -103,33 +116,5 @@
                 "      composer remove drupal/core-project-message"
             ]
         }
-    },
-    "scripts": {
-      "coding-standards-apply": [
-        "@coding-standards-apply/phpcs",
-        "@coding-standards-apply/twig-cs-fixer"
-      ],
-      "coding-standards-apply/phpcs": [
-        "phpcbf --standard=phpcs.xml.dist"
-      ],
-      "coding-standards-apply/twig-cs-fixer": [
-        "twig-cs-fixer lint web/themes/custom/*/templates --fix"
-      ],
-      "coding-standards-check": [
-        "@coding-standards-check/phpcs",
-        "@coding-standards-check/twig-cs-fixer"
-      ],
-      "coding-standards-check/phpcs": [
-        "phpcs --standard=phpcs.xml.dist"
-      ],
-      "coding-standards-check/twig-cs-fixer": [
-        "twig-cs-fixer lint web/themes/custom/*/templates"
-      ],
-      "code-analysis/phpstan": [
-        "phpstan analyse --configuration=phpstan.neon"
-      ],
-      "code-analysis": [
-        "@code-analysis/phpstan"
-      ]
     }
 }
